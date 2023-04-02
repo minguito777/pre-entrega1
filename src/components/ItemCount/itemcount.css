@@ -1,0 +1,9 @@
+h4 {
+    text-align: center;
+}
+
+.btn1{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
