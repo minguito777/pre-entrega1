@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Pika.css'
-export const Pika = () => {
+
+
+export const Pika = () =>{
 
     const [pokemon, setPokemon] = useState("");
 
@@ -20,59 +22,61 @@ export const Pika = () => {
             })
     }, [id])
 
-    const anterior = () => {
-        id > 1 && setId (id -1) 
-    }
 
-    const siguiente = () => {
+    const anterior = ( ) =>{
+        id > 1 && setId (id -1)
+    } 
+
+    const siguiente = () =>{
         setId(id +1)
     }
 
     const inputChange = (e) =>{
         setBusqueda(e.target.value)
     }
-
-    const submit = (e) => {
+    const submit = (e)=>{
         e.preventDefault()
-        if(busqueda.length >2)
-        fetch(`https://pokeapi.co/api/v2/pokemon/${busqueda}`)
-        .then((res) => res.json())
-        .then ((data) =>{
-            setPokemon({
-                nombre: data.name,
-                img : data.sprites.front_default,
-            });
-            setId(data.id)
-        })
-
+        if(busqueda.length >2){
+            fetch(`https://pokeapi.co/api/v2/pokemon/${busqueda}`)
+            .then((res) => res.json())
+            .then((data) =>{
+                setPokemon({
+                    nombre: data.name,
+                    img: data.sprites.front_default,
+                })
+                setId(
+                    data.id
+                )
+            })
+        }
     }
 
 
 
-  return (
-    <>
 
-    {/* {!pokemon ? <h3>cargando...</h3>: } */}
-    <h3 className='pika'>{pokemon.numero}</h3>
-    <h3 className='pika'>{pokemon.nombre}</h3>
-    <img className='pika1' src={pokemon.img}  />
-   
-    <div>
+    return(
+        <>
+        <div>
+        {
+        !pokemon ? <h3>Cargando...</h3>:
+        <>
+        <h3 className='pika'>{pokemon.numero}</h3>
+        <h3 className='pika'>{pokemon.nombre}</h3>
+        <img src={pokemon.img} alt='{pokemon.img'/>
+        </>
+        }
+        </div>
+        <div>
         <button onClick={anterior}>Anterior</button>
         <button onClick={siguiente}>Siguiente</button>
-
-    </div>
-    <div>
+        </div>
+        
+        <>
         <form onSubmit={submit}>
-        <input type="text" value={busqueda} onChange={inputChange} />
+        <input type="text" value={busqueda} onChange={inputChange}/>
         </form>
-    </div>
-    
-    
-    
-    
-    
-    
-     </>
-  )
+        </>
+        </>
+        
+    )
 }
